@@ -107,7 +107,7 @@ class MittKontoPage extends StatelessWidget {
                 ),
               ),
               onTap: () {
-                // Navigate to Payment Methods
+              
               },
             ),
             ListTile(
@@ -125,7 +125,7 @@ class MittKontoPage extends StatelessWidget {
                 ),
               ),
               onTap: () {
-                // Navigate to Support
+               
               },
             ),
           ],

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:my_store/app/data/providers/category_wise_products_controller.dart';
+import 'package:my_store/app/routes/app_routes.dart';
 import 'package:my_store/app/ui/widgets/heading.dart';
 import 'package:my_store/app/ui/widgets/search_bar.dart';
 import 'package:my_store/core/themes/colors.dart';
@@ -86,13 +87,19 @@ class CategoryProductsPage extends StatelessWidget {
                     itemCount: controller.products.length,
                     itemBuilder: (context, index) {
                       final product = controller.products[index];
-                      return ProductCard(
-                        productName: product.title ?? '',
-                        productPrice: product.price?.toStringAsFixed(0) ?? '',
-                        productImage: product.thumbnail ?? '',
-                        productRating: product.rating!,
-                        productCategory: product.category ?? '',
-                        productBrand: product.brand ?? '',
+                      return GestureDetector(
+                        onTap: () {
+                          Get.toNamed(AppRoutes.PRODUCT_DETAILS,
+                              arguments: product.id);
+                        },
+                        child: ProductCard(
+                          productName: product.title ?? '',
+                          productPrice: product.price?.toStringAsFixed(0) ?? '',
+                          productImage: product.thumbnail ?? '',
+                          productRating: product.rating!,
+                          productCategory: product.category ?? '',
+                          productBrand: product.brand ?? '',
+                        ),
                       );
                     },
                   ),

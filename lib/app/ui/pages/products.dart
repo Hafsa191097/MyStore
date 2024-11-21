@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_store/app/data/providers/product_controller.dart';
+import 'package:my_store/app/routes/app_routes.dart';
 import 'package:my_store/app/ui/widgets/heading.dart';
 import 'package:my_store/app/ui/widgets/search_bar.dart';
 import '../widgets/product_card.dart';
@@ -67,13 +68,19 @@ class ProductsPage extends StatelessWidget {
                   itemCount: productController.products.length,
                   itemBuilder: (context, index) {
                     final product = productController.products[index];
-                    return ProductCard(
-                      productName: product.title ?? '',
-                      productPrice: product.price?.toStringAsFixed(0) ?? '0',
-                      productImage: product.thumbnail ?? '',
-                      productRating: product.rating!,
-                      productCategory: product.category ?? '',
-                      productBrand: product.brand ?? '',
+                    return GestureDetector(
+                      onTap: () {
+                        Get.toNamed(AppRoutes.PRODUCT_DETAILS,
+                            arguments: product.id);
+                      },
+                      child: ProductCard(
+                        productName: product.title ?? '',
+                        productPrice: product.price?.toStringAsFixed(0) ?? '0',
+                        productImage: product.thumbnail ?? '',
+                        productRating: product.rating!,
+                        productCategory: product.category ?? '',
+                        productBrand: product.brand ?? '',
+                      ),
                     );
                   },
                 );
