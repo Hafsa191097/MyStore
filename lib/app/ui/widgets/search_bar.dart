@@ -11,7 +11,7 @@ class CustomSearchBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(vertical: 15),
+      margin: const EdgeInsets.only(top: 15, bottom: 5),
       padding: const EdgeInsets.symmetric(horizontal: 10),
       decoration: BoxDecoration(
         border: Border.all(color: Colors.black, width: 1),
@@ -20,8 +20,8 @@ class CustomSearchBar extends StatelessWidget {
       child: Row(
         children: [
           const Icon(Icons.search, color: Colors.black),
-          const SizedBox(width: 8),
-          Expanded(
+          SizedBox(
+            width: MediaQuery.of(context).size.width * 0.7,
             child: TextField(
               controller: controller,
               onChanged: onSearch,
@@ -34,37 +34,6 @@ class CustomSearchBar extends StatelessWidget {
               ),
             ),
           ),
-        ],
-      ),
-    );
-  }
-}
-
-class SearchPage extends StatefulWidget {
-  @override
-  _SearchPageState createState() => _SearchPageState();
-}
-
-class _SearchPageState extends State<SearchPage> {
-  final TextEditingController _searchController = TextEditingController();
-
-  void _onSearch(String query) {
-    print('Search Query: $query');
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Search Bar Example'),
-      ),
-      body: Column(
-        children: [
-          CustomSearchBar(
-            controller: _searchController,
-            onSearch: _onSearch,
-          ),
-          // Add other UI elements below
         ],
       ),
     );

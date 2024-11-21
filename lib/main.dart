@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:my_store/app/routes/app_pages.dart';
 import 'package:my_store/app/routes/app_routes.dart';
+import 'package:my_store/app/ui/pages/bottom_sheet.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,6 +18,7 @@ class MyApp extends StatelessWidget {
       initialRoute: AppRoutes.SPLASH,
       getPages: AppPages.pages,
       debugShowCheckedModeBanner: false,
+      home: const MainPage(),
     );
   }
 }
