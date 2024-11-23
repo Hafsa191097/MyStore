@@ -3,4 +3,5 @@ class AppRoutes {
   static const HOME = '/home';
   static const BottomSheet = '/products';
   static const String PRODUCT_DETAILS = '/product_details';
+  static const String FAVORITES = '/favs';
 }

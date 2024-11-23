@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:get/get.dart';
 import 'package:my_store/app/data/models/product.dart';
 import 'package:my_store/app/data/repositories/category_wise_products.dart';
@@ -13,7 +15,7 @@ class CategoryProductsController extends GetxController {
       final response = await _repository.fetchProductsByCategory(categorySlug);
       products.assignAll(response.products);
     } catch (e) {
-      print("Error: $e");
+      log("Error: $e");
     } finally {
       isLoading(false);
     }

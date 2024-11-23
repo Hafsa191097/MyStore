@@ -18,7 +18,7 @@ class _MainPageState extends State<MainPage> {
   final List<Widget> _screens = [
     ProductsPage(),
     CategoriesPage(),
-    const FavouritesPage(),
+     FavouritesPage(),
     const MittKontoPage(),
   ];
 

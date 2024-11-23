@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:my_store/app/data/models/product.dart';
+import 'package:my_store/app/data/providers/favourite.dart';
 import 'package:my_store/app/data/providers/product_detail.dart';
 import 'package:my_store/app/data/repositories/product_details.dart';
 import 'package:my_store/app/ui/widgets/heading.dart';
@@ -14,6 +14,8 @@ class ProductDetailsPage extends StatelessWidget {
   final ProductDetailsController controller = Get.put(
     ProductDetailsController(repository: ProductRepository()),
   );
+  final FavoritesController favoritesController =
+      Get.put(FavoritesController());
 
   @override
   Widget build(BuildContext context) {
@@ -61,13 +63,12 @@ class ProductDetailsPage extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // Product Image
                       Center(
                         child: Image.network(
                           product.thumbnail ?? '',
                           height: 200,
                           width: double.infinity,
-                          fit: BoxFit.cover,
+                          fit: BoxFit.fitHeight,
                         ),
                       ),
                       const SizedBox(height: 20),
@@ -83,7 +84,28 @@ class ProductDetailsPage extends StatelessWidget {
                               fontWeight: FontWeight.w600,
                             ),
                           ),
-                          SvgPicture.asset('assets/icons/heart_details.svg'),
+                          GestureDetector(
+                            onTap: () {
+                              favoritesController.addFavorite({
+                                'id': product.id,
+                                'name': product.title,
+                                'price': product.price,
+                                'rating': product.rating,
+                                'image': product.thumbnail,
+                              });
+                              Get.snackbar(
+                                'Added to Favorites',
+                                '${product.title} has been added to favorites!',
+                                snackPosition: SnackPosition.BOTTOM,
+                              );
+                            },
+                            child: SvgPicture.asset(
+                              'assets/icons/filled_heart.svg',
+                              color: Colors.black,
+                              height: 20,
+                              width: 20,
+                            ),
+                          ),
                         ],
                       ),
                       rowWidget(
@@ -219,7 +241,7 @@ class rowWidget extends StatelessWidget {
           ),
         ),
         Text(
-          name ?? '',
+          name,
           style: const TextStyle(
             color: Colors.black,
             fontSize: 12,
