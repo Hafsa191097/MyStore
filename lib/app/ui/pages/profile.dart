@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:my_store/app/ui/widgets/heading.dart';
+import 'package:my_store/core/themes/colors.dart';
+import 'package:my_store/core/utils/spaces.dart';
 
 class MittKontoPage extends StatelessWidget {
-  const MittKontoPage({Key? key}) : super(key: key);
+  const MittKontoPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,10 +20,10 @@ class MittKontoPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             TopHeadings(heading: 'Hafsa Mehmood'),
-            const SizedBox(height: 35),
+            verticalSpace(height: 35),
             Container(
               decoration: BoxDecoration(
-                color: Colors.black,
+                color: black,
                 borderRadius: BorderRadius.circular(10),
               ),
               padding: const EdgeInsets.all(16),
@@ -33,37 +35,37 @@ class MittKontoPage extends StatelessWidget {
                     child: const Icon(
                       Icons.person,
                       size: 40,
-                      color: Colors.white,
+                      color: white,
                     ),
                   ),
-                  const SizedBox(width: 16),
-                  const Column(
+                  verticalSpace(height: 16),
+                  Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
+                      const Text(
                         "Hafsa Mehmood",
                         style: TextStyle(
-                          color: Colors.white,
+                          color: white,
                           fontSize: 14,
                           fontFamily: 'Poppins',
                           fontWeight: FontWeight.w400,
                         ),
                       ),
-                      SizedBox(height: 5),
-                      Text(
+                      verticalSpace(height: 5),
+                      const Text(
                         "hafsaayyhere@gmail.com",
                         style: TextStyle(
-                          color: Color(0xFFF2F2F2),
+                          color: lightGrey,
                           fontSize: 10,
                           fontFamily: 'Poppins',
                           fontWeight: FontWeight.w400,
                           height: 0,
                         ),
                       ),
-                      Text(
+                      const Text(
                         "0334563234",
                         style: TextStyle(
-                          color: Color(0xFFF2F2F2),
+                          color: lightGrey,
                           fontSize: 10,
                           fontFamily: 'Poppins',
                           fontWeight: FontWeight.w400,
@@ -75,7 +77,7 @@ class MittKontoPage extends StatelessWidget {
                 ],
               ),
             ),
-            const SizedBox(height: 30),
+            verticalSpace(height: 30),
             ListTile(
               leading: SvgPicture.asset(
                 "assets/icons/settings.svg",
@@ -85,9 +87,10 @@ class MittKontoPage extends StatelessWidget {
               title: const Text(
                 "Kontoinstallningar",
                 style: TextStyle(
-                  fontSize: 16,
+                  color: black,
+                  fontSize: 14,
                   fontFamily: 'Poppins',
-                  fontWeight: FontWeight.w500,
+                  fontWeight: FontWeight.w400,
                 ),
               ),
               onTap: () {},
@@ -101,14 +104,13 @@ class MittKontoPage extends StatelessWidget {
               title: const Text(
                 "Mina betalmetoder",
                 style: TextStyle(
-                  fontSize: 16,
+                  color: black,
+                  fontSize: 14,
                   fontFamily: 'Poppins',
-                  fontWeight: FontWeight.w500,
+                  fontWeight: FontWeight.w400,
                 ),
               ),
-              onTap: () {
-              
-              },
+              onTap: () {},
             ),
             ListTile(
               leading: SvgPicture.asset(
@@ -119,14 +121,14 @@ class MittKontoPage extends StatelessWidget {
               title: const Text(
                 "Support",
                 style: TextStyle(
-                  fontSize: 16,
+                  color: black,
+                  fontSize: 14,
                   fontFamily: 'Poppins',
-                  fontWeight: FontWeight.w500,
+                  fontWeight: FontWeight.w400,
+                  height: 0,
                 ),
               ),
-              onTap: () {
-               
-              },
+              onTap: () {},
             ),
           ],
         ),

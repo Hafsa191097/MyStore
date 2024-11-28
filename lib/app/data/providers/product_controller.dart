@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'package:get/get.dart';
 import 'package:my_store/app/data/models/product.dart';
 import 'package:my_store/app/data/repositories/product_details_rep.dart';
@@ -18,6 +19,7 @@ class ProductController extends GetxController {
       ProductService service = ProductService();
       final productData = await service.fetchProducts();
       products.assignAll(productData);
+      log("Fetched Products: ${products.length}");
     } finally {
       isLoading(false);
     }

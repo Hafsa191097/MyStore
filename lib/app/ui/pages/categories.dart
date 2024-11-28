@@ -6,8 +6,8 @@ import 'package:my_store/app/ui/pages/category_wise_products.dart';
 import 'package:my_store/app/ui/widgets/heading.dart';
 import 'package:my_store/app/ui/widgets/search_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:my_store/core/constants/constants.dart';
 import 'package:my_store/core/themes/colors.dart';
+import 'package:my_store/core/utils/spaces.dart';
 
 class CategoriesPage extends StatelessWidget {
   CategoriesPage({super.key});
@@ -20,6 +20,7 @@ class CategoriesPage extends StatelessWidget {
 
     void onSearch(String query) {
       log('Search Query: $query');
+      categoryController.updateSearchQuery(query);
     }
 
     return Scaffold(
@@ -40,23 +41,29 @@ class CategoriesPage extends StatelessWidget {
               controller: searchController,
               onSearch: onSearch,
             ),
-            const Text(
-              '234 results found',
-              style: TextStyle(
-                color: colorText,
-                fontSize: 10,
-                fontFamily: 'Poppins',
-                fontWeight: FontWeight.w400,
-              ),
-            ),
-            const SizedBox(height: 10),
+            Obx(() {
+              final resultCount = categoryController.filteredCategories.length;
+              return Text(
+                '$resultCount results found',
+                style: const TextStyle(
+                  color: colorText,
+                  fontSize: 10,
+                  fontFamily: 'Poppins',
+                  fontWeight: FontWeight.w400,
+                ),
+              );
+            }),
+            verticalSpace(height: 10,),
             Expanded(
               child: Obx(() {
                 if (categoryController.isLoading.value) {
                   return const Center(
                       child: CircularProgressIndicator(color: Colors.black));
                 }
-
+                final displayedProducts =
+                    categoryController.filteredCategories.isEmpty
+                        ? categoryController.categories
+                        : categoryController.filteredCategories;
                 return GridView.builder(
                   padding: const EdgeInsets.all(0),
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -65,11 +72,11 @@ class CategoriesPage extends StatelessWidget {
                     mainAxisSpacing: 20,
                     childAspectRatio: 1.1,
                   ),
-                  itemCount: categoryController.categories.length,
+                  itemCount: displayedProducts.length,
                   itemBuilder: (context, index) {
-                    final category = categoryController.categories[index];
-                    final imageUrl = categoryImages[category.slug] ??
-                        "https://via.placeholder.com/150/000000/FFFFFF?text=Default";
+                    final category = displayedProducts[index];
+                    const imageUrl =
+                        'https://cdn.shopify.com/s/files/1/0533/2089/files/placeholder-images-image_large.png?v=1530129081';
 
                     return GestureDetector(
                       onTap: () {

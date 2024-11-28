@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:my_store/core/themes/colors.dart';
 
 class CustomSearchBar extends StatelessWidget {
   final TextEditingController controller;
@@ -14,15 +14,16 @@ class CustomSearchBar extends StatelessWidget {
       margin: const EdgeInsets.only(top: 15, bottom: 5),
       padding: const EdgeInsets.symmetric(horizontal: 10),
       decoration: BoxDecoration(
-        border: Border.all(color: Colors.black, width: 1),
+        border: Border.all(color: color2, width: 1),
         borderRadius: BorderRadius.circular(8),
       ),
       child: Row(
         children: [
-          const Icon(Icons.search, color: Colors.black),
+          const Icon(Icons.search, color: color2),
           SizedBox(
             width: MediaQuery.of(context).size.width * 0.7,
             child: TextField(
+              cursorColor: color2,
               controller: controller,
               onChanged: onSearch,
               decoration: const InputDecoration(

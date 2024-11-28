@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_is_empty, camel_case_types
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -5,11 +7,12 @@ import 'package:my_store/app/data/providers/favourite.dart';
 import 'package:my_store/app/data/providers/product_detail.dart';
 import 'package:my_store/app/data/repositories/product_details.dart';
 import 'package:my_store/app/ui/widgets/heading.dart';
+import 'package:my_store/core/utils/spaces.dart';
 
 class ProductDetailsPage extends StatelessWidget {
   final int productId;
 
-  ProductDetailsPage({Key? key, required this.productId}) : super(key: key);
+  ProductDetailsPage({super.key, required this.productId});
 
   final ProductDetailsController controller = Get.put(
     ProductDetailsController(repository: ProductRepository()),
@@ -27,7 +30,7 @@ class ProductDetailsPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SizedBox(height: MediaQuery.of(context).size.height * 0.03),
+            verticalSpace(height: MediaQuery.of(context).size.height * 0.03),
             Padding(
               padding: const EdgeInsets.all(16),
               child: Row(
@@ -57,7 +60,7 @@ class ProductDetailsPage extends StatelessWidget {
                 }
 
                 final product = controller.product.value;
-
+                bool isFavorite = favoritesController.isFavorite(product.id!);
                 return SingleChildScrollView(
                   padding: const EdgeInsets.all(16),
                   child: Column(
@@ -71,7 +74,7 @@ class ProductDetailsPage extends StatelessWidget {
                           fit: BoxFit.fitHeight,
                         ),
                       ),
-                      const SizedBox(height: 20),
+                      verticalSpace(height: 20),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -86,22 +89,34 @@ class ProductDetailsPage extends StatelessWidget {
                           ),
                           GestureDetector(
                             onTap: () {
-                              favoritesController.addFavorite({
-                                'id': product.id,
-                                'name': product.title,
-                                'price': product.price,
-                                'rating': product.rating,
-                                'image': product.thumbnail,
-                              });
-                              Get.snackbar(
-                                'Added to Favorites',
-                                '${product.title} has been added to favorites!',
-                                snackPosition: SnackPosition.BOTTOM,
-                              );
+                              if (isFavorite) {
+                                favoritesController.removeFavorite(product.id!);
+                                Get.snackbar(
+                                  'Removed from Favorites',
+                                  '${product.title} has been removed from favorites!',
+                                  snackPosition: SnackPosition.BOTTOM,
+                                );
+                              } else {
+                                favoritesController.addFavorite({
+                                  'id': product.id,
+                                  'name': product.title,
+                                  'price': product.price,
+                                  'rating': product.rating,
+                                  'image': product.thumbnail,
+                                });
+                                Get.snackbar(
+                                  'Added to Favorites',
+                                  '${product.title} has been added to favorites!',
+                                  snackPosition: SnackPosition.BOTTOM,
+                                );
+                              }
                             },
                             child: SvgPicture.asset(
-                              'assets/icons/filled_heart.svg',
-                              color: Colors.black,
+                              isFavorite
+                                  ? 'assets/icons/filled.svg'
+                                  : 'assets/icons/filled_heart.svg',
+                              // ignore: deprecated_member_use
+                              color: isFavorite ? Colors.red : Colors.black,
                               height: 20,
                               width: 20,
                             ),
@@ -112,27 +127,22 @@ class ProductDetailsPage extends StatelessWidget {
                         desc: 'Name',
                         name: product.title!,
                       ),
-
-                      const SizedBox(height: 10),
+                      verticalSpace(height: 10),
                       rowWidget(
                         desc: 'Price',
                         name: product.price!.toString(),
                       ),
-
-                      const SizedBox(height: 10),
+                      verticalSpace(height: 10),
                       rowWidget(
                         desc: 'Category',
                         name: product.category!,
                       ),
-
-                      const SizedBox(height: 10),
+                      verticalSpace(height: 10),
                       rowWidget(
                         desc: 'Brand',
                         name: product.brand ?? '',
                       ),
-
-                      const SizedBox(height: 10),
-
+                      verticalSpace(height: 10),
                       Row(
                         children: [
                           rowWidget(
@@ -156,18 +166,17 @@ class ProductDetailsPage extends StatelessWidget {
                           ),
                         ],
                       ),
-                      const SizedBox(height: 10),
+                      verticalSpace(height: 10),
                       rowWidget(
                         desc: 'Stock',
                         name: product.stock!.toString(),
                       ),
-                      const SizedBox(height: 20),
-                      // Description
+                      verticalSpace(height: 10),
                       const rowWidget(
                         desc: 'Description',
                         name: '',
                       ),
-                      const SizedBox(height: 10),
+                      verticalSpace(height: 10),
                       Text(
                         product.description ?? '',
                         style: const TextStyle(
@@ -177,34 +186,47 @@ class ProductDetailsPage extends StatelessWidget {
                           fontWeight: FontWeight.w400,
                         ),
                       ),
-                      const SizedBox(height: 20),
-                      // Product Gallery
-                      const rowWidget(
-                        desc: 'Product Gallery',
-                        name: '',
-                      ),
-                      const SizedBox(height: 10),
-                      SizedBox(
-                        width: double.infinity,
-                        child: GridView.builder(
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          gridDelegate:
-                              const SliverGridDelegateWithMaxCrossAxisExtent(
-                            maxCrossAxisExtent: 200,
-                            childAspectRatio: 1,
-                            crossAxisSpacing: 10,
-                          ),
-                          itemCount: product.images?.length ?? 0,
-                          itemBuilder: (context, index) {
-                            return Image.network(
-                              product.images![index],
-                              fit: BoxFit.cover,
-                            );
-                          },
-                        ),
-                      ),
-                      const SizedBox(height: 50),
+                      verticalSpace(height: 20),
+                      product.images?.length == 0
+                          ? Container()
+                          : const rowWidget(
+                              desc: 'Product Gallery',
+                              name: '',
+                            ),
+                      verticalSpace(height: 10),
+                      product.images?.length == 0
+                          ? Container()
+                          : SizedBox(
+                              width: double.infinity,
+                              child: GridView.builder(
+                                shrinkWrap: true,
+                                physics: const NeverScrollableScrollPhysics(),
+                                gridDelegate:
+                                    const SliverGridDelegateWithMaxCrossAxisExtent(
+                                  maxCrossAxisExtent: 200,
+                                  childAspectRatio: 1,
+                                  crossAxisSpacing: 10,
+                                ),
+                                itemCount: product.images?.length ?? 0,
+                                itemBuilder: (context, index) {
+                                  return Obx(() {
+                                    if (controller.isLoading.value == true) {
+                                      return const SizedBox(
+                                        width: 200.0,
+                                        height: 100.0,
+                                        child: CircularProgressIndicator(),
+                                      );
+                                    } else {
+                                      return Image.network(
+                                        product.images![index],
+                                        fit: BoxFit.cover,
+                                      );
+                                    }
+                                  });
+                                },
+                              ),
+                            ),
+                      verticalSpace(height: 50),
                     ],
                   ),
                 );

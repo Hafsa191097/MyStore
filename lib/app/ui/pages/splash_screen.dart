@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:my_store/core/utils/spaces.dart';
 import '../../routes/app_routes.dart';
 
 class SplashPage extends StatelessWidget {
@@ -64,7 +65,7 @@ class SplashPage extends StatelessWidget {
                       fontWeight: FontWeight.w600,
                     ),
                   ),
-                  const SizedBox(height: 10),
+                  verticalSpace(height: 10),
                   SizedBox(
                     width: 285,
                     child: Text(

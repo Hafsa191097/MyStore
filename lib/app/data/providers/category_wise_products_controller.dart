@@ -8,6 +8,7 @@ class CategoryProductsController extends GetxController {
   final CategoryProductsRepository _repository = CategoryProductsRepository();
   var isLoading = true.obs;
   var products = <Product>[].obs;
+  var filteredProducts = <Product>[].obs;
 
   void fetchProducts(String categorySlug) async {
     try {
@@ -18,6 +19,16 @@ class CategoryProductsController extends GetxController {
       log("Error: $e");
     } finally {
       isLoading(false);
+    }
+  }
+
+  void updateSearchQuery(String query) {
+    if (query.isEmpty) {
+      filteredProducts.assignAll(products);  
+    } else {
+      filteredProducts.assignAll(products.where((product) {
+        return (product.title ?? '').toLowerCase().contains(query.toLowerCase());
+      }).toList());
     }
   }
 }

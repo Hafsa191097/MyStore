@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:my_store/core/themes/colors.dart';
+import 'package:my_store/core/utils/spaces.dart';
 
 class ProductCard extends StatelessWidget {
   final String productName;
@@ -60,7 +61,7 @@ class ProductCard extends StatelessWidget {
                     ),
                   ),
                 ),
-                const SizedBox(height: 10),
+                verticalSpace(height: 10),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -87,7 +88,7 @@ class ProductCard extends StatelessWidget {
                     ),
                   ],
                 ),
-                const SizedBox(height: 5),
+                verticalSpace(height: 5),
                 Row(
                   children: [
                     Text(
@@ -98,7 +99,7 @@ class ProductCard extends StatelessWidget {
                         fontWeight: FontWeight.w600,
                       ),
                     ),
-                    const SizedBox(width: 5),
+                    verticalSpace(height: 5),
                     Row(
                       children: List.generate(5, (index) {
                         if (index < productRating) {
@@ -115,7 +116,7 @@ class ProductCard extends StatelessWidget {
                     ),
                   ],
                 ),
-                const SizedBox(height: 5),
+                verticalSpace(height: 5),
                 Text(
                   "By $productBrand",
                   style: const TextStyle(
@@ -126,7 +127,7 @@ class ProductCard extends StatelessWidget {
                     height: 0,
                   ),
                 ),
-                const SizedBox(height: 5),
+                verticalSpace(height: 5),
                 Text(
                   "In $productCategory ",
                   style: GoogleFonts.poppins(
@@ -140,7 +141,7 @@ class ProductCard extends StatelessWidget {
             ),
           ),
         ),
-        const SizedBox(height: 10),
+        verticalSpace(height: 10),
       ],
     );
   }

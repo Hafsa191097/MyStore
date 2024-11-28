@@ -8,6 +8,7 @@ class CategoryController extends GetxController {
   final CategoryRepository _repository = CategoryRepository();
   var isLoading = false.obs;
   var categories = <Category>[].obs;
+  var filteredCategories = <Category>[].obs;
 
   @override
   void onInit() {
@@ -24,6 +25,16 @@ class CategoryController extends GetxController {
       log('Error: $e');
     } finally {
       isLoading.value = false;
+    }
+  }
+
+  void updateSearchQuery(String query) {
+    if (query.isEmpty) {
+      filteredCategories.assignAll(categories);
+    } else {
+      filteredCategories.assignAll(categories.where((category) {
+        return category.name.toLowerCase().contains(query.toLowerCase());
+      }).toList());
     }
   }
 }

@@ -19,7 +19,7 @@ class AppPages {
     ),
     GetPage(
       name: AppRoutes.HOME,
-      page: () => ProductsPage(),
+      page: () => const ProductsPage(),
     ),
     GetPage(
       name: AppRoutes.PRODUCT_DETAILS,

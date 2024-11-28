@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:my_store/app/ui/pages/categories.dart';
@@ -6,7 +8,7 @@ import 'package:my_store/app/ui/pages/products.dart';
 import 'package:my_store/app/ui/pages/profile.dart';
 
 class MainPage extends StatefulWidget {
-  const MainPage({Key? key}) : super(key: key);
+  const MainPage({super.key});
 
   @override
   State<MainPage> createState() => _MainPageState();
@@ -16,7 +18,7 @@ class _MainPageState extends State<MainPage> {
   int _currentIndex = 0;
 
   final List<Widget> _screens = [
-    ProductsPage(),
+    const ProductsPage(),
     CategoriesPage(),
      FavouritesPage(),
     const MittKontoPage(),
