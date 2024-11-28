@@ -38,7 +38,7 @@ class MittKontoPage extends StatelessWidget {
                       color: white,
                     ),
                   ),
-                  verticalSpace(height: 16),
+                  const SizedBox(width: 16),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [

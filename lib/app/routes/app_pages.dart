@@ -14,6 +14,10 @@ class AppPages {
       page: () => const SplashPage(),
     ),
     GetPage(
+      name: AppRoutes.MAIN,
+      page: () => const MainPage(),
+    ),
+    GetPage(
       name: AppRoutes.BottomSheet,
       page: () => const MainPage(),
     ),

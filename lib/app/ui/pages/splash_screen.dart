@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:my_store/core/themes/colors.dart';
 import 'package:my_store/core/utils/spaces.dart';
 import '../../routes/app_routes.dart';
 
@@ -9,8 +10,8 @@ class SplashPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Future.delayed(const Duration(seconds: 4), () {
-      Get.offNamed(AppRoutes.HOME);
+    Future.delayed(const Duration(seconds: 5), () {
+      Get.offNamed(AppRoutes.MAIN);
     });
 
     return Scaffold(
@@ -41,7 +42,7 @@ class SplashPage extends StatelessWidget {
               child: Text(
                 'My Store',
                 style: GoogleFonts.playfairDisplay(
-                  color: Colors.black,
+                  color: black,
                   fontSize: 50,
                   fontWeight: FontWeight.w400,
                 ),
@@ -61,7 +62,7 @@ class SplashPage extends StatelessWidget {
                     'Valkommen',
                     style: GoogleFonts.poppins(
                       fontSize: 14,
-                      color: Colors.white,
+                      color: white,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
@@ -74,7 +75,7 @@ class SplashPage extends StatelessWidget {
                       style: GoogleFonts.poppins(
                           fontSize: 12,
                           fontWeight: FontWeight.w400,
-                          color: Colors.white,
+                          color: white,
                           height: 1.7),
                     ),
                   ),
